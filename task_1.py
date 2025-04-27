@@ -28,6 +28,15 @@ class HashTable:
                 if pair[0] == key:
                     return pair[1]
         return None
+        
+    def delete(self, key):
+        key_hash = self.hash_function(key)
+        if self.table[key_hash] is not None:
+            for i, pair in enumerate(self.table[key_hash]):
+                if pair[0] == key:
+                    del self.table[key_hash][i]
+                    return True
+        return False
 
 # Тестуємо нашу хеш-таблицю:
 H = HashTable(5)
@@ -38,3 +47,8 @@ H.insert("banana", 30)
 print(H.get("apple"))   # Виведе: 10
 print(H.get("orange"))  # Виведе: 20
 print(H.get("banana"))  # Виведе: 30
+
+# Тестуємо метод delete
+print(H.delete("apple"))  # Виведе: True
+print(H.get("apple"))     # Виведе: None
+print(H.delete("grape"))  # Виведе: False
